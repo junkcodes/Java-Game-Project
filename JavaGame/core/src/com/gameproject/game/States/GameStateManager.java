@@ -2,6 +2,7 @@ package com.gameproject.game.States;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.io.IOException;
 import java.util.Stack;
 
 public class GameStateManager {
@@ -20,10 +21,10 @@ public class GameStateManager {
         states.pop();
         states.push(state);
     }
-    public void update(float dt){
+    public void update(float dt) throws IOException {
         states.peek().update(dt);
     }
-    public void render(SpriteBatch sb){
+    public void render(SpriteBatch sb) throws IOException, InterruptedException {
         states.peek().render(sb);
     }
 }

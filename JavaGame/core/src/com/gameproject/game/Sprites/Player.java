@@ -1,5 +1,7 @@
 package com.gameproject.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
@@ -13,15 +15,17 @@ public class Player{
     private Vector2 position;
     private Vector2 velocity;
     private Texture player;
+    private Music life;
 
     public Player(int x, int y){
         position = new Vector2(x,y);
         velocity = new Vector2(0,0);
         player = new Texture("b.png");
+        life = Gdx.audio.newMusic(Gdx.files.internal("life.mp3"));
     }
     public void update(float dt, int zup, int zdown, int zupc, int zdownc, int fallup, int falldown, int crossup, int crossdown, int speed){
         if(zup == 0 && zdown == 0) {
-            if (position.y > 50) velocity.add(0, g);
+            if (position.y > 11) velocity.add(0, g);
             if (position.y >= 494){
                 position.y = 494;
                 velocity.y = g;
@@ -31,16 +35,21 @@ public class Player{
             if (position.y <= 11){
                 if(hit == 1){
                     Life--;
+                    life.play();
                     hit = 0;
                 }
                 droptime += dt;
                 position.y = 11;
                 if(droptime >= 1 && Life > 0){
                     Life--;
+                    life.play();
                     droptime = 0;
                 }
             }
-            else hit = 1;
+            else{
+                hit = 1;
+                droptime = 0;
+            }
             if(dropping == 1 && position.y > 11) position.add( move, 0);
             velocity.scl(1 / dt);
             if (position.x <= 0) position.x = 0;
@@ -76,7 +85,7 @@ public class Player{
         if(jumpcount > 0){
             velocity.y = 350;
             dropping = 1;
-          //  jumpcount--;
+            jumpcount--;
         }
         move = x;
     }

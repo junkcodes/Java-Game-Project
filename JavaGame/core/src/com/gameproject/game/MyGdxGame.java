@@ -9,6 +9,8 @@ import com.gameproject.game.States.GameStateManager;
 import com.gameproject.game.States.MenuState;
 import com.gameproject.game.States.PauseState;
 
+import java.io.IOException;
+
 public class MyGdxGame extends ApplicationAdapter {
 	public static final int width = 840;
 	public static final int height = 520;
@@ -22,14 +24,28 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
-		gsm.push(new MenuState(gsm));
-	}
+        try {
+            gsm.push(new MenuState(gsm));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		gsm.update(Gdx.graphics.getDeltaTime());
-		gsm.render(batch);
+		try {
+			gsm.update(Gdx.graphics.getDeltaTime());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			gsm.render(batch);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 

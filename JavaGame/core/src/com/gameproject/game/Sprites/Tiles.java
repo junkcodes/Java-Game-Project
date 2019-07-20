@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class Tiles {
     private Texture tile;
-    private int speed = 1, c = 1, cu = 5, cd = 5, cdr, rcu, rcd;
+    private int speed = 1, c = 1, cu = 25, cd = 50, cdr, rcu, rcd;
     private Vector3[] positionup = new Vector3[6];
     private Vector2[] pointup = new Vector2[6];
     private Vector2[] crossup = new Vector2[6];
